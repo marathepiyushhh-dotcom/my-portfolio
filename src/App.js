@@ -1,19 +1,27 @@
 import "./App.css";
-import About from "./Components/About";
-import Contact from "./Components/Contact";
+import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar";
-import Projects from "./Components/Project";
-import Skills from "./Components/Skills";
+import { lazy, Suspense } from "react";
+
+// Lazy loaded components
+const About = lazy(() => import("./Components/About"));
+const Project = lazy(() => import("./Components/Project"));
+const Skills = lazy(() => import("./Components/Skills"));
+const Contact = lazy(() => import("./Components/Contact"));
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Navbar />
-      <About />
-      <Projects />
-      <Skills />
-      <Contact />
-    </div>
+
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+        <Hero />
+        <About />
+        <Project />
+        <Skills />
+        <Contact />
+      </Suspense>
+    </>
   );
 }
 
